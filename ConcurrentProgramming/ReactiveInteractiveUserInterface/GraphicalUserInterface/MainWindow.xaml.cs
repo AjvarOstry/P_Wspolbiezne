@@ -18,14 +18,15 @@ namespace TP.ConcurrentProgramming.PresentationView
   /// </summary>
   public partial class MainWindow : Window
   {
-    public MainWindow()
+    public MainWindow(int numberOfBalls)
     {
-      Random random = new Random();
+      //Random random = new Random();
       InitializeComponent();
       MainWindowViewModel viewModel = (MainWindowViewModel)DataContext;
       double screenWidth = SystemParameters.PrimaryScreenWidth;
       double screenHeight = SystemParameters.PrimaryScreenHeight;
-      viewModel.Start(random.Next(5, 10));
+      //viewModel.Start(random.Next(5, 10));
+      viewModel.Start(numberOfBalls);
     }
 
     /// <summary>
