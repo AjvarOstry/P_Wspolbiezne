@@ -81,8 +81,21 @@ namespace TP.ConcurrentProgramming.Data
 
     private void Move(object? x)
     {
+      // this vector will be changed to box size after walls are implemented
+      // 20 to rozmiar kulki, który jest aktualnie zahardcodowany w PresentationModel
+      // Nie mam pojęcia czemu. Nie mam też pojęcia czemu to ma rozmiar jaki ma XD
+      // Powodzenia, ktokolwiek z nas będzie implementował ściany
+      Vector positionLimiter = new(420 -40, 400 );
+      
       foreach (Ball item in BallsList)
-        item.Move(new Vector((RandomGenerator.NextDouble() - 0.5) * 10, (RandomGenerator.NextDouble() - 0.5) * 10));
+        item.Move(new Vector(
+          (RandomGenerator.NextDouble() - 0.5) * 10,
+          (RandomGenerator.NextDouble() - 0.5) * 10),
+          positionLimiter);
+        // item.Move(new Vector(
+        //   -10.0,
+        //   -10.0),
+        //   positionLimiter);
     }
 
     #endregion private

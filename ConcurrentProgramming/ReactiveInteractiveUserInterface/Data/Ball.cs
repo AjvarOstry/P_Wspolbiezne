@@ -39,9 +39,17 @@ namespace TP.ConcurrentProgramming.Data
       NewPositionNotification?.Invoke(this, Position);
     }
 
-    internal void Move(Vector delta)
+    internal void Move(Vector delta, Vector positionLimiter)
     {
-      Position = new Vector(Position.x + delta.x, Position.y + delta.y);
+      double dx = delta.x;
+      double dy = delta.y;
+      
+      if (Position.x + dx >= positionLimiter.x || Position.x + dx <= 0)
+        dx = -dx;
+      if (Position.y + dy >= positionLimiter.y || Position.y + dy <= 0)
+        dy = -dy;
+      
+      Position = new Vector(Position.x + dx, Position.y + dy);
       RaiseNewPositionChangeNotification();
     }
 
