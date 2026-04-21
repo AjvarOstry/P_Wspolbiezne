@@ -24,17 +24,85 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
       Assert.AreEqual<int>(1, numberOfCallBackCalled);
     }
 
+    [TestMethod]
+    public void CollisionWallTestMethod()
+    {
+      DataBallFixture dataBallFixture;
+      //Prawa
+      dataBallFixture = CollisionTestHelper(vx: 20, vy: 0, x: 380, y: 200);
+      
+      Assert.AreEqual(-20, dataBallFixture.Velocity.x, 0.01);
+      Assert.AreEqual(0, dataBallFixture.Velocity.y, 0.01);
+      
+      
+      //Lewa
+      dataBallFixture = CollisionTestHelper(vx: -20, vy: 0, x: 0, y: 200);
+      
+      Assert.AreEqual(20, dataBallFixture.Velocity.x, 0.01);
+      Assert.AreEqual(0, dataBallFixture.Velocity.y, 0.01);
+      
+      
+      //Górna
+      dataBallFixture = CollisionTestHelper(vx: 0, vy: 20, x: 200, y: 400);
+      
+      Assert.AreEqual(-20, dataBallFixture.Velocity.y, 0.01);
+      Assert.AreEqual(0, dataBallFixture.Velocity.x, 0.01);
+      
+      
+      //Dolna
+      dataBallFixture = CollisionTestHelper(vx: 0, vy: -20, x: 200, y: 0);
+      
+      Assert.AreEqual(20, dataBallFixture.Velocity.y, 0.01);
+      Assert.AreEqual(0, dataBallFixture.Velocity.x, 0.01);
+      
+      
+      //lewy górny róg
+      dataBallFixture = CollisionTestHelper(vx: -20, vy: -20, x: 0, y: 0);
+      
+      Assert.AreEqual(20, dataBallFixture.Velocity.y, 0.01);
+      Assert.AreEqual(20, dataBallFixture.Velocity.x, 0.01);
+    }
+
+    private DataBallFixture CollisionTestHelper(double vx, double vy, double x, double y)
+    {
+      DataBallFixture dataBallFixture = new DataBallFixture(vx, vy);
+      Ball newInstance = new(dataBallFixture);
+
+      newInstance.NewPositionNotification += (sender, position) => { };
+      dataBallFixture.Move(x, y);
+      
+      return dataBallFixture;
+    }
+
+    [TestMethod]
+    public void CollisionCornerTestMethod()
+    {
+      DataBallFixture dataBallFixture = new DataBallFixture(vx: 20, vy: 20);
+      Ball newInstance = new(dataBallFixture);
+
+      newInstance.NewPositionNotification += (sender, position) => { };
+      dataBallFixture.Move(x: 410, y: 410); 
+
+      Assert.IsTrue(dataBallFixture.Velocity.x < 0);
+      Assert.IsTrue(dataBallFixture.Velocity.y < 0);
+    }
+    
     #region testing instrumentation
 
     private class DataBallFixture : Data.IBall
     {
-      public Data.IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+      public Data.IVector Velocity { get; set; }
 
       public event EventHandler<Data.IVector>? NewPositionNotification;
 
-      internal void Move()
+      internal DataBallFixture(double vx = 0, double vy = 0)
       {
-        NewPositionNotification?.Invoke(this, new VectorFixture(0.0, 0.0));
+        Velocity = new VectorFixture(vx, vy);
+      }
+      
+      internal void Move(double x = 0.0, double y = 0.0)
+      {
+        NewPositionNotification?.Invoke(this, new VectorFixture(x, y));
       }
     }
 

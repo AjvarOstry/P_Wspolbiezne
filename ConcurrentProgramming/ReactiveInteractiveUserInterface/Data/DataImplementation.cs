@@ -35,8 +35,16 @@ namespace TP.ConcurrentProgramming.Data
       Random random = new Random();
       for (int i = 0; i < numberOfBalls; i++)
       {
-        Vector startingPosition = new(random.Next(100, 400 - 100), random.Next(100, 400 - 100));
-        Ball newBall = new(startingPosition, startingPosition);
+        Vector startingPosition = new(
+          random.Next(100, 400 - 100), 
+          random.Next(100, 400 - 100));
+        
+        Vector initialVelocity = new(
+          (random.NextDouble() - 0.5) * 4,
+          (random.NextDouble() - 0.5) * 4
+        );
+        
+        Ball newBall = new(startingPosition, initialVelocity);
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }
@@ -80,22 +88,10 @@ namespace TP.ConcurrentProgramming.Data
     private List<Ball> BallsList = [];
 
     private void Move(object? x)
+    // detekcja kolizji przeniesiona do warstwy logiki biznesowej
     {
-      // this vector will be changed to box size after walls are implemented
-      // 20 to rozmiar kulki, który jest aktualnie zahardcodowany w PresentationModel
-      // Nie mam pojęcia czemu. Nie mam też pojęcia czemu to ma rozmiar jaki ma XD
-      // Powodzenia, ktokolwiek z nas będzie implementował ściany
-      Vector positionLimiter = new(420 -40, 400 );
-      
       foreach (Ball item in BallsList)
-        item.Move(new Vector(
-          (RandomGenerator.NextDouble() - 0.5) * 10,
-          (RandomGenerator.NextDouble() - 0.5) * 10),
-          positionLimiter);
-        // item.Move(new Vector(
-        //   -10.0,
-        //   -10.0),
-        //   positionLimiter);
+        item.Move(new Vector(item.Velocity.x, item.Velocity.y));
     }
 
     #endregion private

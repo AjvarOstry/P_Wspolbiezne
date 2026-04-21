@@ -27,6 +27,22 @@ namespace TP.ConcurrentProgramming.BusinessLogic
 
     private void RaisePositionChangeEvent(object? sender, Data.IVector e)
     {
+      var dataBall = (Data.IBall)sender!;
+      //40 średnica kulki
+      
+      double boxWidth  = 415 - 40; 
+      double boxHeight = 435 - 40; 
+
+      if (e.x <= 0 || e.x >= boxWidth)
+      {
+        dataBall.Velocity = new Vector(-dataBall.Velocity.x, dataBall.Velocity.y);
+      }
+
+      if (e.y <= 0 || e.y >= boxHeight) 
+      {
+        dataBall.Velocity = new Vector(dataBall.Velocity.x, -dataBall.Velocity.y);
+      }
+
       NewPositionNotification?.Invoke(this, new Position(e.x, e.y));
     }
 

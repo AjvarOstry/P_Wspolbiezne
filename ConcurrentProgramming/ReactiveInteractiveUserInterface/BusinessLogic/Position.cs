@@ -28,4 +28,5 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       y = posY;
     }
   }
+  internal record Vector(double x, double y) : Data.IVector;
 }
