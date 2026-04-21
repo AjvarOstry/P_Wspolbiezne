@@ -52,3 +52,5 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+ConcurrentProgramming/ConcurrentProgramming.sln.DotSettings.user
+ConcurrentProgramming/ConcurrentProgramming.sln.DotSettings.user
