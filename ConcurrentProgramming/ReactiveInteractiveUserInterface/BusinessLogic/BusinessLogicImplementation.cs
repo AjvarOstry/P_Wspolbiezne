@@ -43,10 +43,15 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         throw new ObjectDisposedException(nameof(BusinessLogicImplementation));
       if (upperLayerHandler == null)
         throw new ArgumentNullException(nameof(upperLayerHandler));
+      
+      var collisionManager = new CollisionManager(
+        BusinessLogicAbstractAPI.GetDimensions.BallDimension
+      );
+      
       layerBellow.Start(numberOfBalls, (startingPosition, databall) =>
         upperLayerHandler(
           new Position(startingPosition.x, startingPosition.y),
-          new Ball(databall, layerBellow)  
+          new Ball(databall, layerBellow, collisionManager)
         ));
     }
 

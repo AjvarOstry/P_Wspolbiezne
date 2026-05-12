@@ -48,8 +48,8 @@ namespace TP.ConcurrentProgramming.Data
           random.Next(100, 400 - 100));
         
         Vector initialVelocity = new(
-          (random.NextDouble() - 0.5) * 10,
-          (random.NextDouble() - 0.5) * 10
+          (random.NextDouble() - 0.5) * 4,
+          (random.NextDouble() - 0.5) * 4
         );
         
         double mass = random.NextDouble() * 4 + 1; // masa z zakresu 1.0 - 5.0

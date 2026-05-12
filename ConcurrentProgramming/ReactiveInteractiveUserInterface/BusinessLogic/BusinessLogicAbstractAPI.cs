@@ -14,7 +14,7 @@
     #region Layer API
 
     public static readonly Dimensions GetDimensions = new(
-      BallDimension: 40,
+      BallDimension: 20,
       TableWidth: 415,
       TableHeight: 435
     );
@@ -45,8 +45,10 @@
   }
 
   public interface IBall
-  {
-    event EventHandler<IPosition> NewPositionNotification;
-    double Mass { get; }
-  }
+    {
+        double Mass { get; }
+        double VelocityX { get; set; }
+        double VelocityY { get; set; }
+        event EventHandler<IPosition>? NewPositionNotification;
+    }
 }
