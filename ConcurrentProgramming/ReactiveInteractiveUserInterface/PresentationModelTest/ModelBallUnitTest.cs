@@ -44,6 +44,9 @@ namespace TP.ConcurrentProgramming.Presentation.Model.Test
 
     private class BusinessLogicIBallFixture : BusinessLogic.IBall
     {
+      public double Mass => 1.0;
+      public double VelocityX { get; set; } = 0;
+      public double VelocityY { get; set; } = 0;
       public event EventHandler<IPosition>? NewPositionNotification;
 
       public void Dispose()

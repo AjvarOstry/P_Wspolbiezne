@@ -12,6 +12,7 @@ using TP.ConcurrentProgramming.BusinessLogic;
 
 namespace TP.ConcurrentProgramming.BusinessLogic.Test
 {
+  
   [TestClass]
   public class BusinessLogicAbstractAPIUnitTest
   {
@@ -28,7 +29,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     [TestMethod]
     public void GetDimensionsTestMethod()
     {
-      Assert.AreEqual<Dimensions>(new(10.0, 10.0, 10.0), BusinessLogicAbstractAPI.GetDimensions);
+      Assert.AreEqual<Dimensions>(new(20.0, 435, 415), BusinessLogicAbstractAPI.GetDimensions);
     }
   }
 }

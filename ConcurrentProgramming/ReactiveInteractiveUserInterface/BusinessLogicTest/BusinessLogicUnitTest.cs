@@ -61,9 +61,18 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     }
 
     #region testing instrumentation
+    
+    private record DataVectorFixture : Data.IVector
+    {
+      public double x { get; init; }
+      public double y { get; init; }
+    }
 
     private class DataLayerConstructorFixcure : Data.DataAbstractAPI
     {
+      public override double BoxWidth => 400;
+      public override double BoxHeight => 400;
+
       public override void Dispose()
       { }
 
@@ -75,6 +84,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
 
     private class DataLayerDisposeFixcure : Data.DataAbstractAPI
     {
+      public override double BoxWidth => 400;
+      public override double BoxHeight => 400;
+
       internal bool Disposed = false;
 
       public override void Dispose()
@@ -90,6 +102,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
 
     private class DataLayerStartFixcure : Data.DataAbstractAPI
     {
+      public override double BoxWidth => 400;
+      public override double BoxHeight => 400;
+
       internal bool StartCalled = false;
       internal int NumberOfBallseCreated = -1;
 
@@ -103,14 +118,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
         upperLayerHandler(new DataVectorFixture(), new DataBallFixture());
       }
 
-      private record DataVectorFixture : Data.IVector
-      {
-        public double x { get; init; }
-        public double y { get; init; }
-      }
-
       private class DataBallFixture : Data.IBall
       {
+        public double Mass => 1.0;
         public IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event EventHandler<IVector>? NewPositionNotification = null;

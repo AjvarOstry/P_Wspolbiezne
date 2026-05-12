@@ -17,14 +17,14 @@ namespace TP.ConcurrentProgramming.Data.Test
     public void ConstructorTestMethod()
     {
       Vector testinVector = new Vector(0.0, 0.0);
-      Ball newInstance = new(testinVector, testinVector);
+      Ball newInstance = new(testinVector, testinVector, 1.0);
     }
 
     [TestMethod]
     public void MoveTestMethod()
     {
       Vector initialPosition = new(10.0, 10.0);
-      Ball newInstance = new(initialPosition, new Vector(0.0, 0.0));
+      Ball newInstance = new(initialPosition, new Vector(0.0, 0.0), 1.0);
       IVector curentPosition = new Vector(0.0, 0.0);
       int numberOfCallBackCalled = 0;
       newInstance.NewPositionNotification += (sender, position) =>
@@ -42,7 +42,7 @@ namespace TP.ConcurrentProgramming.Data.Test
     public void MoveChangesPositionTestMethod()
     {
       Vector initialPosition = new(10.0, 10.0);
-      Ball newInstance = new(initialPosition, new Vector(0.0, 0.0));
+      Ball newInstance = new(initialPosition, new Vector(0.0, 0.0),1.0);
       IVector currentPosition = initialPosition;
 
       newInstance.NewPositionNotification += (sender, position) =>

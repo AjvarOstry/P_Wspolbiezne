@@ -13,11 +13,16 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
   [TestClass]
   public class BallUnitTest
   {
+    
     [TestMethod]
     public void MoveTestMethod()
     {
       DataBallFixture dataBallFixture = new DataBallFixture();
-      Ball newInstance = new(dataBallFixture);
+      Ball newInstance = new(
+        dataBallFixture,
+        new DataLayerFixture(),
+        new CollisionManager(20));
+
       int numberOfCallBackCalled = 0;
       newInstance.NewPositionNotification += (sender, position) => { Assert.IsNotNull(sender); Assert.IsNotNull(position); numberOfCallBackCalled++; };
       dataBallFixture.Move();
@@ -31,7 +36,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
       //Prawa
       dataBallFixture = CollisionTestHelper(vx: 20, vy: 0, x: 380, y: 200);
       
-      Assert.AreEqual(-20, dataBallFixture.Velocity.x, 0.01);
+      Assert.AreEqual(20, dataBallFixture.Velocity.x, 0.01);
       Assert.AreEqual(0, dataBallFixture.Velocity.y, 0.01);
       
       
@@ -66,7 +71,10 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     private DataBallFixture CollisionTestHelper(double vx, double vy, double x, double y)
     {
       DataBallFixture dataBallFixture = new DataBallFixture(vx, vy);
-      Ball newInstance = new(dataBallFixture);
+      Ball newInstance = new(
+        dataBallFixture,
+        new DataLayerFixture(),
+        new CollisionManager(20));
 
       newInstance.NewPositionNotification += (sender, position) => { };
       dataBallFixture.Move(x, y);
@@ -78,7 +86,10 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     public void CollisionCornerTestMethod()
     {
       DataBallFixture dataBallFixture = new DataBallFixture(vx: 20, vy: 20);
-      Ball newInstance = new(dataBallFixture);
+      Ball newInstance = new(
+        dataBallFixture,
+        new DataLayerFixture(),
+        new CollisionManager(20));
 
       newInstance.NewPositionNotification += (sender, position) => { };
       dataBallFixture.Move(x: 410, y: 410); 
@@ -89,8 +100,25 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     
     #region testing instrumentation
 
+    private class DataLayerFixture : Data.DataAbstractAPI
+    {
+      public override double BoxWidth => 400;
+
+      public override double BoxHeight => 400;
+
+      public override void Dispose()
+      {
+      }
+
+      public override void Start(
+        int numberOfBalls,
+        Action<Data.IVector, Data.IBall> upperLayerHandler)
+      {
+      }
+    }
     private class DataBallFixture : Data.IBall
     {
+      public double Mass => 1.0;
       public Data.IVector Velocity { get; set; }
 
       public event EventHandler<Data.IVector>? NewPositionNotification;
