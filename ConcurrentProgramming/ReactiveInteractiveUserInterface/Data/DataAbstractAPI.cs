@@ -65,5 +65,6 @@ namespace TP.ConcurrentProgramming.Data
 
     IVector Velocity { get; set; }
     double Mass { get; }
+    int GetMoveCount(); 
   }
 }
