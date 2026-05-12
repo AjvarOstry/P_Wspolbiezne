@@ -15,11 +15,19 @@ namespace TP.ConcurrentProgramming.Data
 {
   internal class DataImplementation : DataAbstractAPI
   {
+    
+    private readonly Box _box = new Box(
+      width:  415 - 40,
+      height: 435 - 40
+    );
+
+    public override double BoxWidth  => _box.Width;
+    public override double BoxHeight => _box.Height;
     #region ctor
 
     public DataImplementation()
     {
-      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(16));
     }
 
     #endregion ctor
