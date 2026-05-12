@@ -54,3 +54,9 @@ TestResult.xml
 nunit-*.xml
 ConcurrentProgramming/ConcurrentProgramming.sln.DotSettings.user
 ConcurrentProgramming/ConcurrentProgramming.sln.DotSettings.user
+
+
+# My builds
+./LinBuild.sh
+./WinBuild.sh
+./LinRun.sh

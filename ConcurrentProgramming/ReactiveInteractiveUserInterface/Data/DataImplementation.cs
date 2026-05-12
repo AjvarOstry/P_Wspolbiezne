@@ -19,7 +19,7 @@ namespace TP.ConcurrentProgramming.Data
 
     public DataImplementation()
     {
-      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(16));
     }
 
     #endregion ctor
@@ -40,8 +40,8 @@ namespace TP.ConcurrentProgramming.Data
           random.Next(100, 400 - 100));
         
         Vector initialVelocity = new(
-          (random.NextDouble() - 0.5) * 4,
-          (random.NextDouble() - 0.5) * 4
+          (random.NextDouble() - 0.5) * 10,
+          (random.NextDouble() - 0.5) * 10
         );
         
         Ball newBall = new(startingPosition, initialVelocity);
