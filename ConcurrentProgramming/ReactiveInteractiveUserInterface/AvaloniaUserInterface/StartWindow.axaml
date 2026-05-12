@@ -1,11 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TP.ConcurrentProgramming.AvaloniaUI"
-        mc:Ignorable="d"
+        xmlns:vm="using:TP.ConcurrentProgramming.Presentation.ViewModel"
         x:Class="TP.ConcurrentProgramming.AvaloniaUI.StartWindow"
-        x:DataType="local:StartWindow"
+        x:DataType="vm:StartWindowViewModel"
         Title="Starting Configuration"
         SizeToContent="WidthAndHeight">
     <Grid>
@@ -17,14 +14,15 @@
                        HorizontalAlignment="Center"/>
 
             <Slider x:Name="BallsSlider"
-                    Minimum="{Binding MinBalls}"
-                    Maximum="{Binding MaxBalls}"
-                    Value="5"
-                    TickFrequency="1"
-                    IsSnapToTickEnabled="True"/>
+        Minimum="{Binding MinBalls}"
+        Maximum="{Binding MaxBalls}"
+        Value="{Binding SelectedNumberOfBalls, Mode=TwoWay}"
+        TickFrequency="1"
+        IsSnapToTickEnabled="True"/>
 
-            <TextBlock Text="{Binding ElementName=BallsSlider, Path=Value}"
-                       HorizontalAlignment="Center"/>
+<!-- To poniżej też musi używać właściwości z ViewModelu -->
+<TextBlock Text="{Binding SelectedNumberOfBalls}" 
+           HorizontalAlignment="Center"/>
 
             <Button Content="Start"
                     Click="Start_Simulation"
