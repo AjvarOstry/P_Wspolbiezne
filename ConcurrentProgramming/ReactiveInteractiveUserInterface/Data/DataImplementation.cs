@@ -52,7 +52,9 @@ namespace TP.ConcurrentProgramming.Data
           (random.NextDouble() - 0.5) * 4
         );
         
-        Ball newBall = new(startingPosition, initialVelocity);
+        double mass = random.NextDouble() * 4 + 1; // masa z zakresu 1.0 - 5.0
+
+        Ball newBall = new(startingPosition, initialVelocity, mass);
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }

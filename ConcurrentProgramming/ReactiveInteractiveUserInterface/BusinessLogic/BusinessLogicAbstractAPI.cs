@@ -47,5 +47,6 @@
   public interface IBall
   {
     event EventHandler<IPosition> NewPositionNotification;
+    double Mass { get; }
   }
 }

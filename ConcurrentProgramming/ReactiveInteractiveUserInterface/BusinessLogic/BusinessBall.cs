@@ -13,12 +13,16 @@ namespace TP.ConcurrentProgramming.BusinessLogic
   internal class Ball : IBall
   {
     private readonly Data.Box _box;
+    private readonly Data.IBall _dataBall;
 
     public Ball(Data.IBall ball, Data.DataAbstractAPI data)
     {
+      _dataBall = ball;
       _box = new Data.Box(data.BoxWidth, data.BoxHeight);
       ball.NewPositionNotification += RaisePositionChangeEvent;
     }
+
+    public double Mass => _dataBall.Mass;
 
     private void RaisePositionChangeEvent(object? sender, Data.IVector e)
     {
