@@ -1,0 +1,1 @@
+dotnet run --project ConcurrentProgramming/ReactiveInteractiveUserInterface/AvaloniaUserInterface/AvaloniaUserInterface.csproj
