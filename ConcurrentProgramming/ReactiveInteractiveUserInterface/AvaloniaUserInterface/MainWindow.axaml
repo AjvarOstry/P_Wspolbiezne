@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TP.ConcurrentProgramming.Presentation.ViewModel"
+        xmlns:model="using:TP.ConcurrentProgramming.Presentation.Model"
+        x:Class="TP.ConcurrentProgramming.AvaloniaUI.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Avalonia UI - Concurrent Programming (Linux)"
+        SizeToContent="WidthAndHeight">
+    <Border BorderThickness="4" BorderBrush="Green" Height="420" Width="400">
+        <ItemsControl ItemsSource="{Binding Balls}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Transparent" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="model:IBall">
+                    <Ellipse Width="{Binding Diameter}" 
+                             Height="{Binding Diameter}" 
+                             Fill="Blue" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.Styles>
+                <Style Selector="ItemsControl > ContentPresenter" x:DataType="model:IBall">
+                    <Setter Property="Canvas.Top" Value="{Binding Top}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                </Style>
+            </ItemsControl.Styles>
+        </ItemsControl>
+    </Border>
+</Window>

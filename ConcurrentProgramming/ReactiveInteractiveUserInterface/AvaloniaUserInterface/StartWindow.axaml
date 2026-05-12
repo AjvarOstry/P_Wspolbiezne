@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TP.ConcurrentProgramming.AvaloniaUI.StartWindow"
+        Title="Starting Configuration"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="200">
+
+            <TextBlock Text="Liczba kulek:" 
+                       HorizontalAlignment="Center"/>
+
+            <Slider x:Name="BallsSlider"
+                    Minimum="1"
+                    Maximum="200"
+                    Value="5"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"/>
+
+            <TextBlock Text="{Binding ElementName=BallsSlider, Path=Value}"
+                       HorizontalAlignment="Center"/>
+
+            <Button Content="Start"
+                    Click="Start_Simulation"
+                    Height="40"
+                    Margin="20"/>
+        </StackPanel>
+    </Grid>
+</Window>
