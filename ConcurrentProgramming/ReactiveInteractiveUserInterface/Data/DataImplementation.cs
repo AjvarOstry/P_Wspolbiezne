@@ -1,14 +1,4 @@
-﻿//____________________________________________________________________________________________________________________________________
-//
-//  Copyright (C) 2024, Mariusz Postol LODZ POLAND.
-//
-//  To be in touch join the community by pressing the `Watch` button and get started commenting using the discussion panel at
-//
-//  https://github.com/mpostol/TP/discussions/182
-//
-//_____________________________________________________________________________________________________________________________________
-
-using System;
+﻿using System;
 using System.Diagnostics;
 
 namespace TP.ConcurrentProgramming.Data
@@ -100,8 +90,16 @@ namespace TP.ConcurrentProgramming.Data
     private void Move(object? x)
     // detekcja kolizji przeniesiona do warstwy logiki biznesowej
     {
-      foreach (Ball item in BallsList)
-        item.Move(new Vector(item.Velocity.x, item.Velocity.y));
+      // foreach (Ball item in BallsList)
+      //   item.Move(new Vector(item.Velocity.x, item.Velocity.y));
+      Parallel.ForEach(BallsList, item =>
+      {
+        item.Move(new Vector(
+          item.Velocity.x,
+          item.Velocity.y
+        ));
+      });
+      // dotąd nowe
     }
 
     #endregion private
