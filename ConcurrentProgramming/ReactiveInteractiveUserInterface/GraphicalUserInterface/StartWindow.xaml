@@ -16,7 +16,7 @@
 
             <Slider x:Name="BallsSlider"
                     Minimum="1"
-                    Maximum="20"
+                    Maximum="1000"
                     Value="5"
                     TickFrequency="1"
                     IsSnapToTickEnabled="True"/>

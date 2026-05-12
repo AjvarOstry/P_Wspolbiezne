@@ -38,6 +38,12 @@ namespace TP.ConcurrentProgramming.Data
     private static Lazy<DataAbstractAPI> modelInstance = new Lazy<DataAbstractAPI>(() => new DataImplementation());
 
     #endregion private
+    
+    #region getters
+    public abstract double BoxWidth  { get; }  
+    public abstract double BoxHeight { get; } 
+    
+    #endregion getters
   }
 
   public interface IVector

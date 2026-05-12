@@ -12,40 +12,27 @@ namespace TP.ConcurrentProgramming.BusinessLogic
 {
   internal class Ball : IBall
   {
-    public Ball(Data.IBall ball)
+    private readonly Data.Box _box;
+
+    public Ball(Data.IBall ball, Data.DataAbstractAPI data)
     {
+      _box = new Data.Box(data.BoxWidth, data.BoxHeight);
       ball.NewPositionNotification += RaisePositionChangeEvent;
     }
-
-    #region IBall
-
-    public event EventHandler<IPosition>? NewPositionNotification;
-
-    #endregion IBall
-
-    #region private
 
     private void RaisePositionChangeEvent(object? sender, Data.IVector e)
     {
       var dataBall = (Data.IBall)sender!;
-      //40 średnica kulki
-      
-      double boxWidth  = 415 - 40; 
-      double boxHeight = 435 - 40; 
 
-      if (e.x <= 0 || e.x >= boxWidth)
-      {
+      if (_box.HitsVerticalWall(e.x))
         dataBall.Velocity = new Vector(-dataBall.Velocity.x, dataBall.Velocity.y);
-      }
 
-      if (e.y <= 0 || e.y >= boxHeight) 
-      {
+      if (_box.HitsHorizontalWall(e.y))
         dataBall.Velocity = new Vector(dataBall.Velocity.x, -dataBall.Velocity.y);
-      }
 
       NewPositionNotification?.Invoke(this, new Position(e.x, e.y));
     }
 
-    #endregion private
+    public event EventHandler<IPosition>? NewPositionNotification;
   }
 }
