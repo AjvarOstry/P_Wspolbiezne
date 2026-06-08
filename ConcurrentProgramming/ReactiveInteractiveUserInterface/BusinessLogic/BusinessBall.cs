@@ -5,6 +5,8 @@
     private readonly Data.Box _box;
     private readonly Data.IBall _dataBall;
     private readonly CollisionManager _collisionManager;
+    public object SyncRoot { get; } = new();
+    
 
     public Ball(Data.IBall ball, Data.DataAbstractAPI data, CollisionManager collisionManager)
     {
