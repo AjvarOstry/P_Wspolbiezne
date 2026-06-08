@@ -19,11 +19,20 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         {
             _positions[ball] = pos;
 
-            foreach (var (other, otherPos) in _positions.ToList()) // snapshot!
+            foreach (var otherBall in _positions.Keys.ToArray()) 
+            // przerobiłem list na array, bo jest bardziej odporne na to, jak jakaś
+            // kulka będzie coś zmieniać w trakcie robienia snapshota akurat
+            // i robimy to tylko po kluczu
             {
-                if (ReferenceEquals(other, ball)) continue;
+                if (ReferenceEquals(otherBall, ball)) continue;
+                if (!_positions.TryGetValue(otherBall, out var otherPos)) continue;
+                // tu se tę pozycję zczytujemy
+                // na podstawie kulki
+                // tak bezboleśnie, bez Runtimeów
+                // bo pytamy o detale pojedynczo, a nie wszystko na raz
+                // i nie wywala całej listy jak coś się rozjedzie
                 if (IsColliding(pos, otherPos))
-                    ResolveCollision(ball, other);
+                    ResolveCollision(ball, otherBall);
             }
         }
 
