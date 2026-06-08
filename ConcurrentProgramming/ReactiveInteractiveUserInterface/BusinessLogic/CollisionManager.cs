@@ -69,6 +69,11 @@ namespace TP.ConcurrentProgramming.BusinessLogic
             if (!_positions.TryGetValue(b, out var posB))
                 return;
 
+            // double oldVxA = a.VelocityX;
+            // double oldVyA = a.VelocityY;
+            // double oldVxB = b.VelocityX;
+            // double oldVyB = b.VelocityY;
+
             double relativeX = b.VelocityX - a.VelocityX;
             double relativeY = b.VelocityY - a.VelocityY;
 
@@ -101,6 +106,10 @@ namespace TP.ConcurrentProgramming.BusinessLogic
 
             b.VelocityX = newVxB;
             b.VelocityY = newVyB;
+
+            // #region Diagnostic
+            // DataImplementation.Logger?.Log($"BALL | {a.GetHashCode()},{b.GetHashCode()} | BEFORE:A({oldVxA:F2},{oldVyA:F2}) B({oldVxB:F2},{oldVyB:F2}) | AFTER:A({newVxA:F2},{newVyA:F2}) B({newVxB:F2},{newVyB:F2})");
+            // #endregion
         }
     }
 }

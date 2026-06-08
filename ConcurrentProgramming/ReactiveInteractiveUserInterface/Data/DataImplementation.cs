@@ -103,6 +103,10 @@ namespace TP.ConcurrentProgramming.Data
     private Random RandomGenerator = new();
     private List<Ball> BallsList = [];
 
+    #region Diagnostic
+    public static DiagnosticLogger Logger = new("simulation_logs.txt");
+    #endregion
+
     private void Move(object? x)
     // detekcja kolizji przeniesiona do warstwy logiki biznesowej
     {
@@ -110,10 +114,19 @@ namespace TP.ConcurrentProgramming.Data
       //   item.Move(new Vector(item.Velocity.x, item.Velocity.y));
       Parallel.ForEach(BallsList, item =>
       {
+        #region Diagnostic
+        var oldVel = item.Velocity;
+        #endregion
         item.Move(new Vector(
           item.Velocity.x,
           item.Velocity.y
         ));
+        #region Diagnostic
+        if (item.Velocity.x != oldVel.x || item.Velocity.y != oldVel.y)
+        {
+            Logger.Log($"WALL | {item.GetHashCode()} | BEFORE:{oldVel.x:F2},{oldVel.y:F2} | AFTER:{item.Velocity.x:F2},{item.Velocity.y:F2}");
+        }
+        #endregion
       });
       MomentumChanged?.Invoke(GetTotalMomentumMagnitude());
       // dotąd nowe
