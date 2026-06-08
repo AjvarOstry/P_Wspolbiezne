@@ -6,6 +6,7 @@
         x:DataType="vm:MainWindowViewModel"
         Title="Avalonia UI - Concurrent Programming (Linux)"
         SizeToContent="WidthAndHeight">
+<StackPanel>
     <Border BorderThickness="4" BorderBrush="Green" Height="420" Width="400">
         <ItemsControl ItemsSource="{Binding Balls}">
             <ItemsControl.ItemsPanel>
@@ -28,4 +29,8 @@
             </ItemsControl.Styles>
         </ItemsControl>
     </Border>
+
+    <TextBlock Text="{Binding MomentumTxt}" HorizontalAlignment="Center" Foreground="Green" FontWeight="Bold"/>
+</StackPanel>
+    
 </Window>

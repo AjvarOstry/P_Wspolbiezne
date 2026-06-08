@@ -7,12 +7,15 @@ namespace TP.ConcurrentProgramming.BusinessLogic
   {
     #region ctor
 
+    public override event Action<double>? MomentumChanged;
+
     public BusinessLogicImplementation() : this(null)
     { }
 
     internal BusinessLogicImplementation(UnderneathLayerAPI? underneathLayer)
     {
       layerBellow = underneathLayer == null ? UnderneathLayerAPI.GetDataLayer() : underneathLayer;
+      layerBellow.MomentumChanged += (val) => MomentumChanged?.Invoke(val);
     }
 
     #endregion ctor

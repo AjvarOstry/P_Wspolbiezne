@@ -21,6 +21,8 @@
 
     public abstract void Start(int numberOfBalls, Action<IPosition, IBall> upperLayerHandler);
 
+    public abstract event Action<double> MomentumChanged;
+
     #region IDisposable
 
     public abstract void Dispose();

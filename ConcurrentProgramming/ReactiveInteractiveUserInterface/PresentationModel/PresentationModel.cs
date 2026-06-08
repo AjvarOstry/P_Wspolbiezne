@@ -20,12 +20,15 @@ namespace TP.ConcurrentProgramming.Presentation.Model
   /// </summary>
   internal class ModelImplementation : ModelAbstractApi
   {
+    public override event Action<double>? MomentumChanged;
+
     internal ModelImplementation() : this(null)
     { }
 
     internal ModelImplementation(UnderneathLayerAPI underneathLayer)
     {
       layerBellow = underneathLayer == null ? UnderneathLayerAPI.GetBusinessLogicLayer() : underneathLayer;
+      layerBellow.MomentumChanged += (val) => MomentumChanged?.Invoke(val);
       eventObservable = Observable.FromEventPattern<BallChaneEventArgs>(this, "BallChanged");
     }
 

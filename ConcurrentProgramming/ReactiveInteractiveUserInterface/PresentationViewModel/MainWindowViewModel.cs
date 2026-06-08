@@ -22,7 +22,18 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
     public MainWindowViewModel() : this(null)
     { }
 
-    internal MainWindowViewModel(ModelAbstractApi modelLayerAPI)
+    public string MomentumTxt
+    {
+      get => _momentumTxt;
+      set 
+      {
+        _momentumTxt = value;
+        RaisePropertyChanged(nameof(MomentumTxt));
+      }
+    }
+    private string _momentumTxt = "Momentum: 0";
+
+    public MainWindowViewModel(ModelAbstractApi modelLayerAPI)
     {
       ModelLayer = modelLayerAPI == null ? ModelAbstractApi.CreateModel() : modelLayerAPI;
       Observer = ModelLayer.Subscribe<ModelIBall>(x => Balls.Add(x));

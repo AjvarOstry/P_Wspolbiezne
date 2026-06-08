@@ -21,6 +21,24 @@ namespace TP.ConcurrentProgramming.Data
     }
 
     #endregion ctor
+    
+    // ==== Drutowane momentum =====
+    // czemu drutowane spytasz? Otóż to debug feature, nic produkcyjnego
+    public override event Action<double>? MomentumChanged;
+
+    public double GetTotalMomentumMagnitude()
+    {
+      double px = 0;
+      double py = 0;
+
+      foreach (var ball in BallsList.ToArray() )
+      {
+        px += Math.Abs(ball.Mass * ball.Velocity.x);
+        py += Math.Abs(ball.Mass * ball.Velocity.y);
+      }
+
+      return Math.Sqrt(px * px + py * py);
+    }
 
     #region DataAbstractAPI
 
@@ -99,6 +117,7 @@ namespace TP.ConcurrentProgramming.Data
           item.Velocity.y
         ));
       });
+      MomentumChanged?.Invoke(GetTotalMomentumMagnitude());
       // dotąd nowe
     }
 

@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using Avalonia.Threading; // Dodane, aby użyć Dispatchera
 using TP.ConcurrentProgramming.Presentation.ViewModel;
+using TP.ConcurrentProgramming.Presentation.Model; // Dodane, aby użyć ModelAbstractApi
 using System;
 
 namespace TP.ConcurrentProgramming.AvaloniaUI;
@@ -9,16 +11,23 @@ public partial class MainWindow : Window
     public MainWindow(int numberOfBalls)
     {
         InitializeComponent();
-        if (DataContext is MainWindowViewModel viewModel)
+        var model = ModelAbstractApi.CreateModel();
+        MainWindowViewModel viewModel;
+        
+        if (DataContext is MainWindowViewModel existingViewModel)
         {
-            viewModel.Start(numberOfBalls);
+            viewModel = existingViewModel;
         }
         else
         {
-            MainWindowViewModel newViewModel = new MainWindowViewModel();
-            DataContext = newViewModel;
-            newViewModel.Start(numberOfBalls);
+            viewModel = new MainWindowViewModel(model);
+            DataContext = viewModel;
         }
+
+        model.MomentumChanged += (val) => 
+            Dispatcher.UIThread.InvokeAsync(() => viewModel.MomentumTxt = $"Momentum: {val:F2}");
+        
+        viewModel.Start(numberOfBalls);
     }
 
     protected override void OnClosed(EventArgs e)
