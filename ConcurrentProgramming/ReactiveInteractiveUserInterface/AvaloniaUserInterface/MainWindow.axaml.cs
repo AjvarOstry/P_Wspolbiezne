@@ -25,7 +25,7 @@ public partial class MainWindow : Window
         }
 
         model.MomentumChanged += (val) => 
-            Dispatcher.UIThread.InvokeAsync(() => viewModel.MomentumTxt = $"Momentum: {val:F2}");
+            Dispatcher.UIThread.InvokeAsync(() => viewModel.MomentumTxt = $"Energia ukladu: {val:F8}");
         
         viewModel.Start(numberOfBalls);
     }

@@ -28,16 +28,14 @@ namespace TP.ConcurrentProgramming.Data
 
     public double GetTotalMomentumMagnitude()
     {
-      double px = 0;
-      double py = 0;
+      double totalEnergy = 0;
 
-      foreach (var ball in BallsList.ToArray() )
+      foreach (var ball in BallsList.ToArray())
       {
-        px += Math.Abs(ball.Mass * ball.Velocity.x);
-        py += Math.Abs(ball.Mass * ball.Velocity.y);
+        totalEnergy += 0.5 * ball.Mass * (ball.Velocity.x * ball.Velocity.x + ball.Velocity.y * ball.Velocity.y);
       }
 
-      return Math.Sqrt(px * px + py * py);
+      return totalEnergy;
     }
 
     #region DataAbstractAPI
