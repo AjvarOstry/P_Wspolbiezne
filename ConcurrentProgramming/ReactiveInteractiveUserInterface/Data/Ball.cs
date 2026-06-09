@@ -1,4 +1,6 @@
-﻿namespace TP.ConcurrentProgramming.Data
+﻿using System.Diagnostics;
+
+namespace TP.ConcurrentProgramming.Data
 {
   internal class Ball : IBall
   {
@@ -37,10 +39,14 @@
       NewPositionNotification?.Invoke(this, Position);
     }
 
-    internal void Move(Vector delta)
+    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
+    internal void Move(Vector velocity)
     {
-      double dx = delta.x;
-      double dy = delta.y;
+      double dt = _stopwatch.Elapsed.TotalSeconds;
+      _stopwatch.Restart();
+      
+      double dx = velocity.x * dt * 60; 
+      double dy = velocity.y * dt * 60;
       
       Position = new Vector(Position.x + dx, Position.y + dy);
       

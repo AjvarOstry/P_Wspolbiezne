@@ -110,25 +110,21 @@ namespace TP.ConcurrentProgramming.Data
     private void Move(object? x)
     // detekcja kolizji przeniesiona do warstwy logiki biznesowej
     {
-      // foreach (Ball item in BallsList)
-      //   item.Move(new Vector(item.Velocity.x, item.Velocity.y));
-      Parallel.ForEach(BallsList, item =>
+      Ball[] snapshot = BallsList.ToArray(); // snapshot — bezpieczna iteracja
+
+      Parallel.ForEach(snapshot, item =>
       {
         #region Diagnostic
         var oldVel = item.Velocity;
         #endregion
-        item.Move(new Vector(
-          item.Velocity.x,
-          item.Velocity.y
-        ));
+
+        item.Move(new Vector(item.Velocity.x, item.Velocity.y));
+
         #region Diagnostic
         if (item.Velocity.x != oldVel.x || item.Velocity.y != oldVel.y)
-        {
-            Logger.Log($"WALL | {item.GetHashCode()} | BEFORE:{oldVel.x:F2},{oldVel.y:F2} | AFTER:{item.Velocity.x:F2},{item.Velocity.y:F2}");
-        }
+          Logger.Log($"WALL | {item.GetHashCode()} | BEFORE:{oldVel.x:F2},{oldVel.y:F2} | AFTER:{item.Velocity.x:F2},{item.Velocity.y:F2}");
         #endregion
       });
-      MomentumChanged?.Invoke(GetTotalMomentumMagnitude());
 
       double energy = GetTotalMomentumMagnitude();
       MomentumChanged?.Invoke(energy);
