@@ -129,6 +129,10 @@ namespace TP.ConcurrentProgramming.Data
         #endregion
       });
       MomentumChanged?.Invoke(GetTotalMomentumMagnitude());
+
+      double energy = GetTotalMomentumMagnitude();
+      MomentumChanged?.Invoke(energy);
+      Logger.Log($"ENERGY | total={energy:F8}");
       // dotąd nowe
     }
 
