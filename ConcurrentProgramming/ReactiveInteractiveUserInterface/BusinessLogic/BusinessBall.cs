@@ -35,11 +35,14 @@
     {
       var dataBall = (Data.IBall)sender!;
 
-      if (_box.HitsVerticalWall(e.x))
-        dataBall.Velocity = new Vector(-dataBall.Velocity.x, dataBall.Velocity.y);
+      lock (SyncRoot)
+      {
+        if (_box.HitsVerticalWall(e.x))
+          dataBall.Velocity = new Vector(-dataBall.Velocity.x, dataBall.Velocity.y);
 
-      if (_box.HitsHorizontalWall(e.y))
-        dataBall.Velocity = new Vector(dataBall.Velocity.x, -dataBall.Velocity.y);
+        if (_box.HitsHorizontalWall(e.y))
+          dataBall.Velocity = new Vector(dataBall.Velocity.x, -dataBall.Velocity.y);
+      }
 
       var pos = new Position(e.x, e.y);
       _collisionManager.UpdatePosition(this, pos);
