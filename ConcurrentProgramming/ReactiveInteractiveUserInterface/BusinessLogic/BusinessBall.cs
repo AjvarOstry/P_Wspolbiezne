@@ -34,17 +34,27 @@
     private void RaisePositionChangeEvent(object? sender, Data.IVector e)
     {
       var dataBall = (Data.IBall)sender!;
+      double x = e.x;
+      double y = e.y;
 
       lock (SyncRoot)
       {
-        if (_box.HitsVerticalWall(e.x))
+        if (_box.HitsVerticalWall(x))
+        {
           dataBall.Velocity = new Vector(-dataBall.Velocity.x, dataBall.Velocity.y);
+          // cofnij pozycję do granicy
+          x = x <= 0 ? 0 : _box.Width;
+        }
 
-        if (_box.HitsHorizontalWall(e.y))
+        if (_box.HitsHorizontalWall(y))
+        {
           dataBall.Velocity = new Vector(dataBall.Velocity.x, -dataBall.Velocity.y);
+          // cofnij pozycję do granicy
+          y = y <= 0 ? 0 : _box.Height;
+        }
       }
 
-      var pos = new Position(e.x, e.y);
+      var pos = new Position(x, y);
       _collisionManager.UpdatePosition(this, pos);
       NewPositionNotification?.Invoke(this, pos);
     }
